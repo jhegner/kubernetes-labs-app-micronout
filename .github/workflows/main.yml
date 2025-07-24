@@ -1,0 +1,18 @@
+name: kubernetes-labs-app-micronout echo
+
+on:
+  push:
+    branches:
+    - feature/*
+
+jobs:
+  kubernetes-labs-app-micronout-echo:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: fancy-echo
+        uses: logesh-kumar/fancy-echo@v1.2.0
+        with:
+          # Who to greet
+          who-to-greet: "kubernetes-labs-app-micronout"
+            
