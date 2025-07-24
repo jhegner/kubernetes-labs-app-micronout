@@ -1,6 +1,0 @@
-#Wed Jul 09 21:55:33 BRT 2025
-micronaut.application.name=kubernetes-labs-app-micronout
-
-redis.uri=redis\://localhost
-
-app.team.color=blue
