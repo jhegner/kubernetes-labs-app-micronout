@@ -1,8 +1,0 @@
-micronaut:
-  application:
-    name: kubernetes-labs-app-micronout
-app:
-  team:
-    color: blue
-redis:
-  uri: redis://localhost
