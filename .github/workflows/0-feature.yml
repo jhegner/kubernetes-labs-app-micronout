@@ -13,3 +13,4 @@ jobs:
     secrets:      
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SONAR_KEY: ${{ secrets.SONAR_KEY }}
