@@ -22,7 +22,6 @@
     <micronaut.aot.packageName>org.jhegner.k8slabs.aot.generated</micronaut.aot.packageName>
     <micronaut.runtime>netty</micronaut.runtime>
     <exec.mainClass>org.jhegner.k8slabs.Application</exec.mainClass>
-    <sonar.organization>kubernetes-labs</sonar.organization>
   </properties>
 
   <repositories>
