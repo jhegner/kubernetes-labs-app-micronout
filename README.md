@@ -21,4 +21,17 @@
 
 - [Micronaut AOT documentation](https://micronaut-projects.github.io/micronaut-aot/latest/guide/)
 
+## Dockerimage lint
 
+```haskell
+    wget -O hadolint https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
+
+    sudo mv hadolint /usr/local/bin/hadolint
+
+    sudo chmod +x /usr/local/bin/hadolint
+
+    hadolint --version
+
+    hadolint Dockerfile
+
+```

@@ -9,8 +9,11 @@ RUN mvn clean install
 FROM amazoncorretto:21-alpine-jdk
 WORKDIR /app
 
+ARG TZDATA_VERSION=2025b-r0
+ARG CURL_VERSION=8.15.0-r0
+
 RUN apk upgrade && apk update && \
-    apk add --no-cache tzdata curl && \
+    apk add --no-cache tzdata=$TZDATA_VERSION curl=$CURL_VERSION  && \
     cp /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime && \
     echo "America/Sao_Paulo" > /etc/timezone && \
     apk del tzdata && \
