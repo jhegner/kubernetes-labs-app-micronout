@@ -6,7 +6,6 @@ COPY src ./src
 
 RUN mvn clean install
 
-# Estágio 2: Execução
 FROM amazoncorretto:21-alpine-jdk
 WORKDIR /app
 
