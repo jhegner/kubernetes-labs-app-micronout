@@ -21,7 +21,7 @@
 
 - [Micronaut AOT documentation](https://micronaut-projects.github.io/micronaut-aot/latest/guide/)
 
-## Dockerimage lint (on Local Ubuntu Linux).
+## Dockerimage lint (on Local Ubuntu Linux)
 
 ```haskell
     wget -O hadolint https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
