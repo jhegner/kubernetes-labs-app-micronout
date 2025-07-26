@@ -7,11 +7,11 @@ on:
 
 jobs:
   ci-feature:
-    uses: jhegner/kubernetes-labs-ci-workflows/.github/workflows/0-feature-java-mvn.yml@main
+    uses: jhegner/kubernetes-labs-ci-workflows/.github/workflows/0-feature.yml@main
     with:
       project-name: kubernetes-labs-app-micronout
       source-branch: ${{ github.ref_name }}
-    secrets:      
+    secrets:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       SONAR_KEY: ${{ secrets.SONAR_KEY }}
