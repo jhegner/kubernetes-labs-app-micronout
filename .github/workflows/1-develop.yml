@@ -1,0 +1,15 @@
+name: Reuso CI Develop
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  ci-feature:
+    uses: jhegner/kubernetes-labs-ci-workflows/.github/workflows/1-develop.yml@main
+    with:
+      container-registry-name: ${{ vars.CONTAINER_REGISTRY_NAME }}
+    secrets:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      VULTR_API_KEY: ${{ secrets.VULTR_API_KEY }}
