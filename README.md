@@ -35,3 +35,10 @@
     hadolint Dockerfile
 
 ```
+
+## conventionalcommits
+
+- https://www.conventionalcommits.org/en/v1.0.0/
+- https://commitlint.js.org/
+- https://typicode.github.io/husky/
+
