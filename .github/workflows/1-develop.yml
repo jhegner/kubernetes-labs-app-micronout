@@ -10,6 +10,7 @@ jobs:
     uses: jhegner/kubernetes-labs-ci-workflows/.github/workflows/1-develop.yml@main
     with:
       container-registry-name: ${{ vars.CONTAINER_REGISTRY_NAME }}
+      image-name: "kubernetes-labs-app-micronout"
     secrets:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
       VULTR_API_KEY: ${{ secrets.VULTR_API_KEY }}
