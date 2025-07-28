@@ -18,13 +18,13 @@ public class AppController {
     public Map<String, String> index() {
         try {
             return Map.of(
-                    "message", "Hello from Micronaut!",
+                    "message", "k8s lab app micronout is running!",
                     "hostname", InetAddress.getLocalHost().getHostName(),
                     "ipAddress", InetAddress.getLocalHost().getHostAddress(),
                     "teamColor", teamColor);
         } catch (Exception e) {
             return Map.of(
-                    "message", "Hello from Micronaut!",
+                    "message", "k8s lab app micronout is running!",
                     "teamColor", teamColor,
                     "error", e.getMessage());
         }
