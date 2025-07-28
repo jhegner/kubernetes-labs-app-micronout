@@ -7,7 +7,7 @@ on:
 
 jobs:
   ci-feature:
-    uses: jhegner/kubernetes-labs-ci-workflows/.github/workflows/0-feature.yml@main
+    uses: jhegner/kubernetes-labs-ci-workflows/.github/workflows/0-reusable-feature.yml@main
     with:
       project-name: kubernetes-labs-app-micronout
       source-branch: ${{ github.ref_name }}

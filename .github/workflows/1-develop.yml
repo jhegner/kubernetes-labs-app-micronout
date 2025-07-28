@@ -7,10 +7,13 @@ on:
 
 jobs:
   ci-feature:
-    uses: jhegner/kubernetes-labs-ci-workflows/.github/workflows/1-develop.yml@main
+    uses: jhegner/kubernetes-labs-ci-workflows/.github/workflows/1-reusable-develop.yml@main
     with:
-      container-registry-name: ${{ vars.CONTAINER_REGISTRY_NAME }}
       image-name: "kubernetes-labs-app-micronout"
     secrets:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
       VULTR_API_KEY: ${{ secrets.VULTR_API_KEY }}
+      VULTR_REGISTRY_URN: ${{ secrets.VULTR_REGISTRY_URN }}
+      VULTR_REGISTRY_USERNAME: ${{ secrets.VULTR_REGISTRY_USERNAME }}   
+      VULTR_REGISTRY_PASSWORD: ${{ secrets.VULTR_REGISTRY_PASSWORD }}
+      VULTR_CONTAINER_REGISTRY_NAME: ${{ secrets.VULTR_CONTAINER_REGISTRY_NAME }}
