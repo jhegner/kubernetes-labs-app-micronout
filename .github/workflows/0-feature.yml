@@ -1,4 +1,4 @@
-name: Reuso CI Feature
+name: 🛠️ - CI Feature (push)
 
 on:
   push:
