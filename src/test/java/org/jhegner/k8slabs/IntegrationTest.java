@@ -6,7 +6,6 @@ import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -28,6 +27,7 @@ class IntegrationTest {
     @Test
     void testaSeAplicacaoExecutaComSucesso() {
         Assertions.assertTrue(application.isRunning());
+        Assertions.assertTrue(server.isRunning());
     }
 
     @Test
