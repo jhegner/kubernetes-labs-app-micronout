@@ -1,4 +1,4 @@
-name: Reuso CI Feature
+name: 🛠️ - CI Feature (push)
 
 on:
   push:
@@ -15,3 +15,4 @@ jobs:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       SONAR_KEY: ${{ secrets.SONAR_KEY }}
+      MOCKAPI_PROJECT_SECRET: ${{ secrets.MOCKAPI_PROJECT_SECRET }}
