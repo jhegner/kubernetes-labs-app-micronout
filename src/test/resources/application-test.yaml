@@ -6,7 +6,7 @@ micronaut:
     port: 8080
 
 mockapi:
-  protocol: https
-  project-secret: ${MOCKAPI_PROJECT_SECRET}
-  host: mockapi.io
+  protocol: http
+  project-secret: ''
+  host: localhost:8080/mockapi.io/
   prefix: api/v1

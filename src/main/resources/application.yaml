@@ -8,5 +8,5 @@ micronaut:
 mockapi:
   protocol: https
   project-secret: ${MOCKAPI_PROJECT_SECRET}
-  host: mockapi.io
+  host: .mockapi.io
   prefix: api/v1

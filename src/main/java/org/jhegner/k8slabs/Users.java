@@ -10,6 +10,13 @@ public class Users {
     private String avatar;
     private String id;
 
+    public Users(String createdAt, String name, String avatar, String id) {
+        this.createdAt = createdAt;
+        this.name = name;
+        this.avatar = avatar;
+        this.id = id;
+    }
+
     public String getCreatedAt() {
         return createdAt;
     }

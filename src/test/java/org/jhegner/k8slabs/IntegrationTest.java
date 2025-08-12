@@ -1,6 +1,5 @@
 package org.jhegner.k8slabs;
 
-import io.micronaut.runtime.EmbeddedApplication;
 import io.micronaut.runtime.server.EmbeddedServer;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
@@ -13,37 +12,29 @@ import java.util.List;
 class IntegrationTest {
 
     @Inject
-    EmbeddedApplication<?> application;
-
-    @Inject
-    EmbeddedServer server;
-
-    @Inject
     UsersClient usersClient;
 
     @Inject
     ProductsClient productsClient;
 
     @Test
-    void testaSeAplicacaoExecutaComSucesso() {
-        Assertions.assertTrue(application.isRunning());
-        Assertions.assertTrue(server.isRunning());
-    }
+    void testaRequisicaoEndpoints() {
 
-    @Test
-    void testaRequisicaoEndpointUsuarios() {
-        List<Users> response = usersClient.getUsers()
+        List<Users> users = usersClient.getUsers()
                 .collectList().block();
-        Assertions.assertNotNull(response);
-        Assertions.assertFalse(response.isEmpty());
-    }
 
-    @Test
-    void testaRequisicaoEndpointProdutos() {
-        List<Product> response = productsClient.getProducts()
+        List<Product> products = productsClient.getProducts()
                 .collectList().block();
-        Assertions.assertNotNull(response);
-        Assertions.assertFalse(response.isEmpty());
+
+        Assertions.assertNotNull(users);
+        Assertions.assertEquals(2, users.size());
+        Assertions.assertEquals("User 1", users.getFirst().getName());
+
+        Assertions.assertNotNull(products);
+        Assertions.assertEquals(2, products.size());
+        Assertions.assertEquals("Product 1", products.getFirst().getName());
+
+
     }
 
 }
