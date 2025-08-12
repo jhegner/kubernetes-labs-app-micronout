@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-labs-app-micronout
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kubernetes-labs-app-micronout
+  template:
+    metadata:
+      labels:
+        app: kubernetes-labs-app-micronout
+    spec:
+      containers:
+      - name: kubernetes-labs-app-micronout
+        image: <Image>
+        resources:
+          limits:
+            memory: "800Mi"
+            cpu: "500m"
+          requests:
+            memory: "400Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: 8080
