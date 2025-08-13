@@ -6,7 +6,7 @@ import reactor.core.publisher.Flux;
 
 import static io.micronaut.http.MediaType.APPLICATION_JSON;
 
-@Controller("/kubernetes-labs/api/v1")
+@Controller("/kuberneteslabs/api/v1")
 public class AppController {
 
     private final UsersClient usersClient;
@@ -18,12 +18,12 @@ public class AppController {
         this.productsClient = productsClient;
     }
 
-    @Get(uri = "usuarios", processes = APPLICATION_JSON)
+    @Get(uri = "/usuarios", processes = APPLICATION_JSON)
     public Flux<Users> getUsuarios() {
         return usersClient.getUsers();
     }
 
-    @Get(uri = "produtos", processes = APPLICATION_JSON)
+    @Get(uri = "/produtos", processes = APPLICATION_JSON)
     public Flux<Product> getProdutos() {
         return productsClient.getProducts();
     }

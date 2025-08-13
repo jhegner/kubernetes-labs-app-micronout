@@ -11,3 +11,6 @@ mockapi:
   port: 8080
   path-prefix: "mockapi.io/api/v1"
   base-url: "${mockapi.protocol}://${mockapi.host}:${mockapi.port}/${mockapi.path-prefix}"
+
+controller:
+  uri: "http://${micronaut.server.host}:${micronaut.server.port}/kuberneteslabs/api/v1"
