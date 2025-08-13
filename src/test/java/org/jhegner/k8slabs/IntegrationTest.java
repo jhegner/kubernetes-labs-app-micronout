@@ -12,29 +12,38 @@ import java.util.List;
 class IntegrationTest {
 
     @Inject
+    EmbeddedServer server;
+
+    @Inject
     UsersClient usersClient;
 
     @Inject
     ProductsClient productsClient;
 
+
     @Test
-    void testaRequisicaoEndpoints() {
+    void testaRequisicaoUsersEndpoint() {
 
         List<Users> users = usersClient.getUsers()
-                .collectList().block();
-
-        List<Product> products = productsClient.getProducts()
                 .collectList().block();
 
         Assertions.assertNotNull(users);
         Assertions.assertEquals(2, users.size());
         Assertions.assertEquals("User 1", users.getFirst().getName());
 
+    }
+
+    @Test
+    void testaRequisicaoProductsEndpoint() {
+
+        List<Product> products = productsClient.getProducts()
+                .collectList().block();
+
         Assertions.assertNotNull(products);
         Assertions.assertEquals(2, products.size());
         Assertions.assertEquals("Product 1", products.getFirst().getName());
 
 
-    }
+    } 
 
 }
