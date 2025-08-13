@@ -12,6 +12,15 @@ public class Product {
     private String description;
     private String price;
 
+    public Product(String createdAt, String name, String avatar, String id, String description, String price) {
+        this.createdAt = createdAt;
+        this.name = name;
+        this.avatar = avatar;
+        this.id = id;
+        this.description = description;
+        this.price = price;
+    }
+
     public String getCreatedAt() {
         return createdAt;
     }
