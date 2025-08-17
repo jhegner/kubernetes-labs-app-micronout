@@ -1,13 +1,4 @@
 apiVersion: apps/v1
-kind: Namespace
-metadata:
-  name: kubernetes-labs
-  labels:
-    name: kubernetes-labs
-
----
-
-apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kubernetes-labs-app-micronout
