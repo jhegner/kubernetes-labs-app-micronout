@@ -1,33 +1,31 @@
 package org.jhegner.k8slabs;
 
-import java.net.InetAddress;
-import java.util.Map;
-
-import io.micronaut.context.annotation.Value;
-import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
+import reactor.core.publisher.Flux;
 
-@Controller("/hello")
+import static io.micronaut.http.MediaType.APPLICATION_JSON;
+
+@Controller("/kuberneteslabs/api/v1")
 public class AppController {
 
-    @Value("${app.team.color}")
-    protected String teamColor;
+    private final UsersClient usersClient;
+    private final ProductsClient productsClient;
 
-    @Get(produces = MediaType.APPLICATION_JSON)
-    public Map<String, String> index() {
-        try {
-            return Map.of(
-                    "message", "Hello from Micronaut!",
-                    "hostname", InetAddress.getLocalHost().getHostName(),
-                    "ipAddress", InetAddress.getLocalHost().getHostAddress(),
-                    "teamColor", teamColor);
-        } catch (Exception e) {
-            return Map.of(
-                    "message", "Hello from Micronaut!",
-                    "teamColor", teamColor,
-                    "error", e.getMessage());
-        }
+    public AppController(final UsersClient usersClient,
+                         final ProductsClient productsClient) {
+        this.usersClient = usersClient;
+        this.productsClient = productsClient;
+    }
+
+    @Get(uri = "/usuarios", processes = APPLICATION_JSON)
+    public Flux<Users> getUsuarios() {
+        return usersClient.getUsers();
+    }
+
+    @Get(uri = "/produtos", processes = APPLICATION_JSON)
+    public Flux<Product> getProdutos() {
+        return productsClient.getProducts();
     }
 
 }

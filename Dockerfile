@@ -1,4 +1,4 @@
-FROM maven:3.9.6-amazoncorretto-21 AS build
+FROM maven:3.9.11-amazoncorretto-21 AS build
 WORKDIR /app
 COPY pom.xml .
 RUN mvn dependency:go-offline -B
@@ -9,8 +9,11 @@ RUN mvn clean install
 FROM amazoncorretto:21-alpine-jdk
 WORKDIR /app
 
-RUN apk upgrade && apk update && \
-    apk add --no-cache tzdata curl && \
+ARG TZDATA_VERSION=2025b-r0
+ARG CURL_VERSION=8.14.1-r1
+
+RUN apk update && apk upgrade  && \
+    apk add --no-cache tzdata=$TZDATA_VERSION curl=$CURL_VERSION  && \
     cp /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime && \
     echo "America/Sao_Paulo" > /etc/timezone && \
     apk del tzdata && \

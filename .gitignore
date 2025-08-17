@@ -14,3 +14,7 @@ out/
 .classpath
 .factorypath
 .mvn
+
+# Env node modules - commitlint
+/node_modules/
+.husky/
