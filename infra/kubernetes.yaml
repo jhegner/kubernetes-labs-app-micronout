@@ -25,3 +25,19 @@ spec:
               cpu: "250m"
           ports:
             - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubernetes-labs-app-micronout-service
+  namespace: kubernetes-labs
+  annotations:
+    service.beta.kubernetes.io/vultr-loadbalancer-protocol: "http"
+spec:
+  type: LoadBalancer
+  selector:
+    app: kubernetes-labs-app-micronout
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
