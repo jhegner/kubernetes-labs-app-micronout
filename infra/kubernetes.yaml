@@ -33,6 +33,7 @@ metadata:
   namespace: kubernetes-labs
   annotations:
     service.beta.kubernetes.io/vultr-loadbalancer-protocol: "http"
+    service.beta.kubernetes.io/vultr-loadbalancer-label: "kubernetes-labs-service-lb"
 spec:
   type: LoadBalancer
   selector:
