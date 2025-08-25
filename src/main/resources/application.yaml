@@ -7,7 +7,7 @@ micronaut:
 
 mockapi:
   protocol: "http"
-  host: "${MOCKAPI_PROJECT_SECRET}"
+  host: ${MOCKAPI_PROJECT_SECRET}
   port: 443
   path-prefix: "mockapi.io/api/v1"
   base-url: "${mockapi.protocol}://${mockapi.host}:${mockapi.port}/${mockapi.path-prefix}"
