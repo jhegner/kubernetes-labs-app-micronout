@@ -34,6 +34,12 @@ metadata:
   annotations:
     service.beta.kubernetes.io/vultr-loadbalancer-protocol: "http"
     service.beta.kubernetes.io/vultr-loadbalancer-label: "kubernetes-labs-service-lb"
+    service.beta.kubernetes.io/vultr-loadbalancer-algorithm: "least_connections"
+    service.beta.kubernetes.io/vultr-loadbalancer-healthcheck-path: "/health"
+    service.beta.kubernetes.io/vultr-loadbalancer-healthcheck-check-interval: "10"
+    service.beta.kubernetes.io/vultr-loadbalancer-healthcheck-response-timeout: "5"
+    service.beta.kubernetes.io/vultr-loadbalancer-healthcheck-unhealthy-threshold: "5"
+    service.beta.kubernetes.io/vultr-loadbalancer-healthcheck-healthy-threshold: "5"
 spec:
   type: LoadBalancer
   selector:
