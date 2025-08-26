@@ -1,10 +1,13 @@
-package org.jhegner.k8slabs;
+package org.jhegner.k8slabs.mock;
 
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+
+import org.jhegner.k8slabs.Product;
+import org.jhegner.k8slabs.Users;
 
 import static io.micronaut.http.MediaType.APPLICATION_JSON;
 

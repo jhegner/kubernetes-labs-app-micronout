@@ -42,3 +42,8 @@
 - https://commitlint.js.org/
 - https://typicode.github.io/husky/
 
+## Maven
+
+Execute
+
+`mvn wrapper:wrapper`

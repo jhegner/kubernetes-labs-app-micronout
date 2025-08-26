@@ -6,8 +6,9 @@ micronaut:
     port: 8080
 
 mockapi:
-  protocol: "http"
-  host: "${MOCKAPI_PROJECT_SECRET}"
+  protocol: "https"
+  host: ${MOCKAPI_PROJECT_SECRET}
+  prefix: ${MOCKAPI_PREFIX}
   port: 443
-  path-prefix: "mockapi.io/api/v1"
-  base-url: "${mockapi.protocol}://${mockapi.host}:${mockapi.port}/${mockapi.path-prefix}"
+  version: ${MOCKAPI_VERSION}
+  base-url: "${mockapi.protocol}://${mockapi.host}.${mockapi.prefix}:${mockapi.port}/${mockapi.version}"
