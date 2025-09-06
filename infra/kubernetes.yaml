@@ -1,20 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kubernetes-labs-app-micronout
-  namespace: kubernetes-labs
+  name: labs-app-micronout
+  namespace: labs
+  labels:
+    projeto: projeto-1
+    app: labs-app-micronout
+    stack: micronaut
+    team: devops
+    environment: labs
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: kubernetes-labs-app-micronout
+      app: labs-app-micronout
   template:
     metadata:
       labels:
-        app: kubernetes-labs-app-micronout
+        app: labs-app-micronout
     spec:
       containers:
-        - name: kubernetes-labs-app-micronout
+        - name: labs-app-micronout
           image: ${IMAGE_NAME}:${IMAGE_TAG}
           resources:
             limits:
@@ -25,20 +31,76 @@ spec:
               cpu: "250m"
           ports:
             - containerPort: 8080
+          env:
+            - name: MOCKAPI_PATH_PREFIX
+              valueFrom:
+                configMapKeyRef:
+                  name: app-micronout-config-labs
+                  key: mockapi-path-prefix                  
+            - name: MOCKAPI_PROJECT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: secret-workload-lab
+                  key: lab-secret
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
+            timeoutSeconds: 2
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 3
+            failureThreshold: 3
+            periodSeconds: 5
+            successThreshold: 1
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: kubernetes-labs-app-micronout-service
-  namespace: kubernetes-labs
+  name: labs-app-micronout-service
+  namespace: labs
   annotations:
     service.beta.kubernetes.io/vultr-loadbalancer-protocol: "http"
-    service.beta.kubernetes.io/vultr-loadbalancer-label: "kubernetes-labs-service-lb"
+    service.beta.kubernetes.io/vultr-loadbalancer-label: "labs-service-lb"
 spec:
   type: LoadBalancer
   selector:
-    app: kubernetes-labs-app-micronout
+    app: labs-app-micronout
   ports:
     - protocol: TCP
       port: 80
       targetPort: 8080
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-micronout-config-labs
+  namespace: labs
+data:
+  mockapi-path-prefix: mockapi.io
+
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: app-micronout-eso-labs
+spec:
+  refreshInterval: 0
+  secretStoreRef:
+    name: secret-store-eso-lab
+    kind: SecretStore
+  target:
+    name: secret-workload-lab
+    creationPolicy: Owner
+  data:
+  - secretKey: lab-secret
+    remoteRef:
+      key: lab/kubernetes
+      property: MOCKAPI_PROJECT_SECRET
+      decodingStrategy: Base64
