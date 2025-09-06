@@ -78,8 +78,14 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-codec-http2</artifactId>
-      <version>4.2.5.Final</version>
+      <version>4.2.5.Final</version> <!-- Use the minimum fixed version for the CVE -->
     </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-codec-http</artifactId>
+      <version>4.2.5.Final</version> <!-- Use the minimum fixed version for the CVE -->
+    </dependency>
+
     <dependency>
         <groupId>io.micronaut</groupId>
         <artifactId>micronaut-management</artifactId>
