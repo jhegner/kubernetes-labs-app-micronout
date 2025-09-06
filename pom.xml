@@ -22,6 +22,7 @@
     <micronaut.aot.packageName>org.jhegner.k8slabs.aot.generated</micronaut.aot.packageName>
     <micronaut.runtime>netty</micronaut.runtime>
     <exec.mainClass>org.jhegner.k8slabs.Application</exec.mainClass>
+    <netty.version>4.2.5.Final</netty.version>
   </properties>
 
   <repositories>
@@ -78,12 +79,10 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-codec-http2</artifactId>
-      <version>4.2.5.Final</version> <!-- Use the minimum fixed version for the CVE -->
     </dependency>
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-codec-http</artifactId>
-      <version>4.2.5.Final</version> <!-- Use the minimum fixed version for the CVE -->
     </dependency>
 
     <dependency>
@@ -91,6 +90,21 @@
         <artifactId>micronaut-management</artifactId>
     </dependency>
   </dependencies>
+
+  <!-- netty-bom (Bill of Materials)  garantir a consistência das versões do Netty. O BOM gerenciará automaticamente todas as dependências transitivas do Netty para usar a mesma versão-->
+
+  <dependencyManagement>
+      <dependencies>
+          <dependency>
+              <groupId>io.netty</groupId>
+              <artifactId>netty-bom</artifactId>
+              <version>${netty.version}</version>
+              <type>pom</type>
+              <scope>import</scope>
+          </dependency>
+      </dependencies>
+  </dependencyManagement>
+
   <build>
     <plugins>
       <plugin>
