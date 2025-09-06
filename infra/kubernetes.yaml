@@ -101,7 +101,6 @@ kind: ExternalSecret
 metadata:
   name: app-micronout-externalsecret-lab
 spec:
-  refreshInterval: 0
   secretStoreRef:
     name: secret-store-eso-lab
     kind: SecretStore
