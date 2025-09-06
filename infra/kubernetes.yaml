@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: labs-app-micronout
+  name: app-micronout
   namespace: labs
   labels:
     projeto: projeto-1
-    app: labs-app-micronout
+    app: app-micronout
     stack: micronaut
     team: devops
     environment: labs
@@ -13,14 +13,14 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: labs-app-micronout
+      app: app-micronout
   template:
     metadata:
       labels:
-        app: labs-app-micronout
+        app: app-micronout
     spec:
       containers:
-        - name: labs-app-micronout
+        - name: app-micronout
           image: ${IMAGE_NAME}:${IMAGE_TAG}
           resources:
             limits:
@@ -35,7 +35,7 @@ spec:
             - name: MOCKAPI_PATH_PREFIX
               valueFrom:
                 configMapKeyRef:
-                  name: app-micronout-config-labs
+                  name: app-micronout-config-lab
                   key: mockapi-path-prefix                  
             - name: MOCKAPI_PROJECT_SECRET
               valueFrom:
@@ -58,38 +58,48 @@ spec:
             failureThreshold: 3
             periodSeconds: 5
             successThreshold: 1
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: labs-app-micronout-service
+  name: app-micronout-service-lb
   namespace: labs
   annotations:
     service.beta.kubernetes.io/vultr-loadbalancer-protocol: "http"
     service.beta.kubernetes.io/vultr-loadbalancer-label: "labs-service-lb"
+    service.beta.kubernetes.io/vultr-loadbalancer-algorithm: "least_connections"
+    service.beta.kubernetes.io/vultr-loadbalancer-healthcheck-path: "/health"
+    service.beta.kubernetes.io/vultr-loadbalancer-healthcheck-check-interval: "10"
+    service.beta.kubernetes.io/vultr-loadbalancer-healthcheck-response-timeout: "5"
+    service.beta.kubernetes.io/vultr-loadbalancer-healthcheck-unhealthy-threshold: "5"
+    service.beta.kubernetes.io/vultr-loadbalancer-healthcheck-healthy-threshold: "5"    
 spec:
   type: LoadBalancer
   selector:
-    app: labs-app-micronout
+    app:  app-micronout-lab
   ports:
     - protocol: TCP
       port: 80
       targetPort: 8080
 
 ---
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: app-micronout-config-labs
+  name: app-micronout-config-lab
   namespace: labs
 data:
   mockapi-path-prefix: mockapi.io
 
 ---
+
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
-  name: app-micronout-eso-labs
+  name: app-micronout-externalsecret-lab
 spec:
   refreshInterval: 0
   secretStoreRef:
