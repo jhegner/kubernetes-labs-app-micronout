@@ -1,3 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-configmap-lab
+  namespace: labs
+data:
+  mockapi-path-prefix: mockapi.io
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -8,7 +18,7 @@ metadata:
     app: app-micronout
     stack: micronaut
     team: devops
-    environment: labs
+    env: lab
 spec:
   replicas: 3
   selector:
@@ -35,13 +45,13 @@ spec:
             - name: MOCKAPI_PATH_PREFIX
               valueFrom:
                 configMapKeyRef:
-                  name: app-micronout-config-lab
-                  key: mockapi-path-prefix                  
+                  name: app-configmap-lab
+                  key: mockapi-path-prefix             
             - name: MOCKAPI_PROJECT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: secret-workload-lab
-                  key: lab-secret
+                  name: mockapi-project-secret-app
+                  key: MOCKAPI_PROJECT_SECRET
           livenessProbe:
             httpGet:
               path: /health
@@ -86,30 +96,19 @@ spec:
 
 ---
 
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: app-micronout-config-lab
-  namespace: labs
-data:
-  mockapi-path-prefix: mockapi.io
-
----
-
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: app-micronout-externalsecret-lab
 spec:
   secretStoreRef:
-    name: secret-store-eso-lab
+    name: secretstore-awsiam-credencial
     kind: SecretStore
   target:
-    name: secret-workload-lab
+    name: mockapi-project-secret-app
     creationPolicy: Owner
   data:
-  - secretKey: lab-secret
+  - secretKey: MOCKAPI_PROJECT_SECRET
     remoteRef:
       key: lab/kubernetes
       property: MOCKAPI_PROJECT_SECRET
-      decodingStrategy: Base64
