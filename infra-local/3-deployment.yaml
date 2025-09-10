@@ -17,11 +17,16 @@ spec:
   template:
     metadata:
       labels:
+        projeto: projeto-1
         app: app-micronout
+        stack: micronaut
+        team: devops
+        env: lab
     spec:
       containers:
         - name: app-micronout
-          image: ewr.vultrcr.com/kuberneteslabcontainerregistry/kubernetes-labs-app-micronout:develop
+          image: ${IMAGE_NAME}:${IMAGE_TAG}
+          imagePullPolicy: Always
           resources:
             limits:
               memory: "800Mi"
@@ -36,30 +41,30 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: app-micronout-config
-                  key: mockapi-path-prefix    
+                  key: mockapi-path-prefix
             - name: MOCKAPI_VERSION
               valueFrom:
                 configMapKeyRef:
                   name: app-micronout-config
-                  key: MOCKAPI_VERSION                           
+                  key: MOCKAPI_VERSION
             - name: MOCKAPI_PROJECT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: app-micronout-secret
                   key: MOCKAPI_PROJECT_SECRET
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 10
-            failureThreshold: 3
-            timeoutSeconds: 2
           readinessProbe:
             httpGet:
               path: /health
               port: 8080
-            initialDelaySeconds: 3
-            failureThreshold: 3
+            initialDelaySeconds: 10
             periodSeconds: 5
-            successThreshold: 1
+            timeoutSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
