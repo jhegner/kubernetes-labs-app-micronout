@@ -1,5 +1,6 @@
 {
     "java.configuration.updateBuildConfiguration": "automatic",
     "java.debug.settings.onBuildFailureProceed": true,
-    "maven.view": "hierarchical"
+    "maven.view": "hierarchical",
+    "java+.runConfig.env": "MOCKAPI_VERSION=api/v1,MOCKAPI_PATH_PREFIX=mockapi.io"
 }

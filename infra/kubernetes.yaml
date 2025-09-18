@@ -9,7 +9,7 @@ metadata:
     team: devops
     env: lab
 data:
-  mockapi-path-prefix: mockapi.io
+  MOCKAPI_PATH_PREFIX: mockapi.io
   MOCKAPI_VERSION: api/v1
 
 ---
@@ -17,7 +17,7 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-micronout
+  name: app-micronout-deploy
   namespace: labs
   labels:
     projeto: projeto-1
@@ -57,16 +57,16 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: app-micronout-config
-                  key: mockapi-path-prefix   
+                  key: MOCKAPI_PATH_PREFIX
             - name: MOCKAPI_VERSION
               valueFrom:
                 configMapKeyRef:
                   name: app-micronout-config
-                  key: MOCKAPI_VERSION                       
+                  key: MOCKAPI_VERSION
             - name: MOCKAPI_PROJECT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: app-micronout-secret
+                  name: mockapi-project-secret
                   key: MOCKAPI_PROJECT_SECRET
           readinessProbe:
             httpGet:
@@ -140,10 +140,38 @@ spec:
     - host: labs.nercode.com.br
       http:
         paths:
-          - path: /kuberneteslabs/api/v1
+          - path: /
             pathType: Prefix
             backend:
               service:
                 name: app-micronout-service
                 port:
                   number: 80
+
+---
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: lab-hpa-app-micronout
+  namespace: labs
+  labels:
+    app: app-micronout
+    projeto: projeto-1
+    stack: micronaut
+    team: devops
+    env: lab
+spec:
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - resource:
+      name: cpu
+      target:
+        averageUtilization: 50
+        type: Utilization
+    type: Resource
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: app-micronout-deploy
