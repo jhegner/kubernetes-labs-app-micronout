@@ -14,26 +14,6 @@ data:
 
 ---
 
-apiVersion: external-secrets.io/v1
-kind: ExternalSecret
-metadata:
-  name: app-micronout-externalsecret-lab
-  namespace: labs
-spec:
-  secretStoreRef:
-    name: secretstore-awsiam-credencial
-    kind: SecretStore
-  target:
-    name: app-micronout-secret
-    creationPolicy: Owner
-  data:
-  - secretKey: MOCKAPI_PROJECT_SECRET
-    remoteRef:
-      key: lab/kubernetes
-      property: MOCKAPI_PROJECT_SECRET
-
----
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -49,7 +29,7 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: app-micronout
+      app: "app-micronout"
   template:
     metadata:
       labels:
@@ -110,28 +90,60 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: app-micronout-service-lb
+    name: app-micronout-service
+    namespace: labs
+    labels:
+      app: app-micronout
+      component: api
+      projeto: projeto-1
+      team: devops
+      env: lab       
+spec:
+    selector:
+      app: app-micronout
+    ports:
+      - name: http
+        port: 80
+        targetPort: 8080
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: labs-ingress
   namespace: labs
   labels:
-    app: app-micronout
-    component: api
+    app: labs-ingress
     projeto: projeto-1
     team: devops
-    env: lab    
+    env: lab 
   annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
     service.beta.kubernetes.io/vultr-loadbalancer-protocol: "http"
-    service.beta.kubernetes.io/vultr-loadbalancer-label: "labs-service-lb"
+    service.beta.kubernetes.io/vultr-loadbalancer-label: "labs-ingress-lb"
     service.beta.kubernetes.io/vultr-loadbalancer-algorithm: "least_connections"
     service.beta.kubernetes.io/vultr-loadbalancer-healthcheck-path: "/health"
     service.beta.kubernetes.io/vultr-loadbalancer-healthcheck-check-interval: "5"
     service.beta.kubernetes.io/vultr-loadbalancer-healthcheck-response-timeout: "3"
     service.beta.kubernetes.io/vultr-loadbalancer-healthcheck-unhealthy-threshold: "3"
-    service.beta.kubernetes.io/vultr-loadbalancer-healthcheck-healthy-threshold: "2"   
+    service.beta.kubernetes.io/vultr-loadbalancer-healthcheck-healthy-threshold: "2"    
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"    
 spec:
-  type: LoadBalancer
-  selector:
-    app:  app-micronout
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8080
+  tls:
+    - secretName: labs-tls
+      hosts:
+        - labs.nercode.com.br
+  rules:
+    - host: labs.nercode.com.br
+      http:
+        paths:
+          - path: /kuberneteslabs/api/v1
+            pathType: Prefix
+            backend:
+              service:
+                name: app-micronout-service
+                port:
+                  number: 80
