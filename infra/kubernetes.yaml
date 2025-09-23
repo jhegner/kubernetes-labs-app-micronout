@@ -162,7 +162,7 @@ metadata:
     team: devops
     env: lab
 spec:
-  minReplicas: 1
+  minReplicas: 3
   maxReplicas: 10
   metrics:
   - resource:
