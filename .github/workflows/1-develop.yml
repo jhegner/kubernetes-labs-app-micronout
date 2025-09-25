@@ -7,9 +7,10 @@ on:
 
 jobs:
   ci-feature:
-    uses: jhegner/kubernetes-labs-ci-workflows/.github/workflows/1-reusable-develop.yml@main
+    uses: jhegner/kubernetes-labs-ci-workflows/.github/workflows/1.2-reusable-develop.yml@develop
     with:
       image-name: "kubernetes-labs-app-micronout"
+      app-description: "Aplicacao micronout do projeto-1 do lab kubernetes"
     secrets:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
       VULTR_API_KEY: ${{ secrets.VULTR_API_KEY }}
