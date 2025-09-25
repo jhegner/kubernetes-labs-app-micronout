@@ -84,11 +84,21 @@
       <groupId>io.netty</groupId>
       <artifactId>netty-codec-http</artifactId>
     </dependency>
-
     <dependency>
         <groupId>io.micronaut</groupId>
         <artifactId>micronaut-management</artifactId>
     </dependency>
+    <dependency>
+      <groupId>io.micronaut.micrometer</groupId>
+      <artifactId>micronaut-micrometer-core</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.micronaut.micrometer</groupId>
+      <artifactId>micronaut-micrometer-registry-prometheus</artifactId>
+      <scope>compile</scope>
+    </dependency>
+
   </dependencies>
 
   <!-- netty-bom (Bill of Materials)  garantir a consistência das versões do Netty. O BOM gerenciará automaticamente todas as dependências transitivas do Netty para usar a mesma versão-->

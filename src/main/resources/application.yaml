@@ -12,3 +12,17 @@ mockapi:
   port: 443
   version: ${MOCKAPI_VERSION}
   base-url: "${mockapi.protocol}://${mockapi.host}.${mockapi.prefix}:${mockapi.port}/${mockapi.version}"
+
+endpoints:
+  prometheus:
+    enabled: true
+    sensitive: false # expõe publicamente, pode restringir via auth/rede
+  metrics:
+    enabled: true
+    sensitive: false
+
+micrometer:
+  enabled: true
+  export:
+    prometheus:
+      enabled: true
