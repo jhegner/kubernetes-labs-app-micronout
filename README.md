@@ -1,4 +1,4 @@
-# Micronaut 4.9.1 Documentation - app
+# Micronaut 4.9.1 Documentation - app (pipe)
 
 - [User Guide](https://docs.micronaut.io/4.9.1/guide/index.html)
 - [API Reference](https://docs.micronaut.io/4.9.1/api/index.html)
