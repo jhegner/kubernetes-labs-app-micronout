@@ -20,4 +20,12 @@ out/
 .husky/
 
 # Local test
-kubernetes-local.yaml
+*-local.yaml
+
+# keys
+*.pem
+*.key
+*.crt
+*.cert
+*.p12
+*.jks

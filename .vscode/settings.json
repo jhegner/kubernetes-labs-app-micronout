@@ -2,5 +2,6 @@
     "java.configuration.updateBuildConfiguration": "automatic",
     "java.debug.settings.onBuildFailureProceed": true,
     "maven.view": "hierarchical",
-    "java+.runConfig.env": "MOCKAPI_VERSION=api/v1,MOCKAPI_PATH_PREFIX=mockapi.io"
+    "java+.runConfig.env": "MOCKAPI_VERSION=api/v1,MOCKAPI_PATH_PREFIX=mockapi.io",
+    "java+.runConfig.vmOptions": "-javaagent:/newrelic.jar"
 }
