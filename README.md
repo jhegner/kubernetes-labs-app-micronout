@@ -86,3 +86,16 @@ docker rm app-micronout
 Execute no terminal
 
 `mvn wrapper:wrapper`
+
+
+## Git tag name
+
+`git tag <name>`
+
+## Git push tag
+
+`git push origin v2.0.1`
+
+## Micrometer
+
+[Doc. micronaut-micrometer](https://micronaut-projects.github.io/micronaut-micrometer/latest/guide/#metricsConcepts)
